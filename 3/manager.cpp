@@ -18,9 +18,9 @@ Manager::Manager() :
   io( IOManager::getInstance() ),
   clock( Clock::getInstance() ),
   screen( io.getScreen() ),
-  backRed( Gamedata::getInstance().getXmlInt("back/red") ),
-  backGreen( Gamedata::getInstance().getXmlInt("back/green") ),
-  backBlue( Gamedata::getInstance().getXmlInt("back/blue") ),
+ // backRed( Gamedata::getInstance().getXmlInt("back/red") ),
+ // backGreen( Gamedata::getInstance().getXmlInt("back/green") ),
+ // backBlue( Gamedata::getInstance().getXmlInt("back/blue") ),
 
   orbSurface( io.loadAndSet(
     Gamedata::getInstance().getXmlStr("greenorb/file"), 
@@ -28,6 +28,13 @@ Manager::Manager() :
   orbFrame( new Frame("greenorb", orbSurface) ),
  // orb("greenorb", orbFrame),
    orbs(),
+
+  backgroundSurface( io.loadAndSet(
+    Gamedata::getInstance().getXmlStr("background/file"), 
+    Gamedata::getInstance().getXmlBool("background/transparency")) ),
+  backgroundFrame( new Frame("background", backgroundSurface) ),
+  background("background",backgroundFrame),
+
   makeVideo( false ),
   frameCount( 0 ),
   username(  Gamedata::getInstance().getXmlStr("username") ),
@@ -44,10 +51,11 @@ Manager::Manager() :
 }
 
 void Manager::drawBackground() const {
-  SDL_FillRect( screen, NULL, 
-    SDL_MapRGB(screen->format, backRed, backGreen, backBlue) );
-  SDL_Rect dest = {0, 0, 0, 0};
-  SDL_BlitSurface( screen, NULL, screen, &dest );
+//  SDL_FillRect( screen, NULL, 
+//    SDL_MapRGB(screen->format, backRed, backGreen, backBlue) );
+//  SDL_Rect dest = {0, 0, 0, 0};
+//  SDL_BlitSurface( screen, NULL, screen, &dest );
+    background.draw();
 }
 
 void Manager::draw() const {
@@ -66,6 +74,7 @@ void Manager::update() {
   clock.update();
   Uint32 ticks = clock.getTicksSinceLastFrame();
   //orb.update(ticks);
+  background.update(ticks);
   for(unsigned int i = 0; i < orbs.size(); i++){
 	orbs[i].update(ticks);
   }
@@ -100,9 +109,19 @@ void Manager::play() {
           std::cout << "Making video frames" << std::endl;
           makeVideo = true;
         }
+        if (keystate[SDLK_s]) {
+          std::cout << "sloMO" << std::endl;
+          clock.toggleSloMo();
+        }
         if (keystate[SDLK_p] ) {
-          if ( clock.isPaused() ) clock.unpause();
-          else clock.pause();
+          clock.toggleSloMo();
+          if ( clock.isPaused() ){ 
+          	std::cout << "unPause" << std::endl;
+ 		clock.unpause();
+          } else{ 
+                std::cout << "Pause" << std::endl;
+                clock.pause();
+          }
         }
       }
     }

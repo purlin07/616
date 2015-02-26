@@ -45,4 +45,15 @@
   <transparency>true</transparency>
 </greenorb>
 
+<background>
+  <file>images/checkerboard.bmp</file>
+  <srcX>0</srcX>
+  <srcY>0</srcY>
+  <width>854</width>
+  <height>480</height>
+  <startLoc x="0" y="0"/>
+  <speedX>0</speedX>
+  <speedY>0</speedY>
+  <transparency>false</transparency>
+</background>
 </GameData>

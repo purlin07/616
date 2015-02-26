@@ -39,7 +39,16 @@ void Clock::draw() const {
 }
 
 void Clock::update() { 
-  ticks = 5;
+  //ticks = 5;
+  if(!paused){ 
+  if(sloMo)
+	 ticks = 1;
+  else
+	 ticks = 5;
+  }else{
+	ticks = 0;
+  }
+  
   sumOfTicks += ticks;
 }
 
@@ -48,6 +57,10 @@ unsigned int Clock::getTicksSinceLastFrame() const {
 }
 
 void Clock::toggleSloMo() {
+	if(sloMo) 
+		sloMo = false;
+	else
+		sloMo = true;
 }
 
 int Clock::getFps() const { 
@@ -60,10 +73,14 @@ void Clock::start() {
 }
 
 void Clock::pause() { 
-  std::cout << "pause: Not implemented yet" << std::endl;
+  paused = true;
+ // started = false;
+  //std::cout << "pause: Not implemented yet" << std::endl;
 }
 
 void Clock::unpause() { 
-  std::cout << "unpause: Not implemented yet" << std::endl;
+//  started = true;
+   paused = false;
+  //std::cout << "unpause: Not implemented yet" << std::endl;
 }
 

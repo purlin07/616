@@ -16,13 +16,17 @@ private:
   Clock& clock;
 
   SDL_Surface * const screen;
-  int backRed;
-  int backGreen;
-  int backBlue;
+ // int backRed;
+ // int backGreen;
+ // int backBlue;
 
   SDL_Surface* orbSurface;
   const Frame * const orbFrame;
   std::vector<Sprite> orbs;
+
+  SDL_Surface* backgroundSurface;
+  const Frame * const backgroundFrame;
+  Sprite background;
 
   bool makeVideo;
   int frameCount;
