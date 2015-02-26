@@ -35,8 +35,7 @@ Clock::Clock(const Clock& c) :
 }
 
 void Clock::draw() const { 
-  IOManager::getInstance()->
-    printMessageValueAt("ticks: ", ticks, 10, 30);
+  IOManager::getInstance().printMessageValueAt("ticks: ", ticks, 10, 30);
 }
 
 void Clock::update() { 

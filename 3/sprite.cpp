@@ -3,18 +3,23 @@
 #include "sprite.h"
 #include "gamedata.h"
 
+int getRandomFactor() {
+	int num = Gamedata::getInstance().getRandInRange(50,140);
+	num *=rand()%2 ? -1: 1;
+	return num;
+}
 Sprite::Sprite(const std::string& name, const Frame* const frame) :
   Drawable(name,
-           Vector2f(Gamedata::getInstance()->getXmlInt(name+"/startLoc/x"), 
-                    Gamedata::getInstance()->getXmlInt(name+"/startLoc/y")), 
-           Vector2f(Gamedata::getInstance()->getXmlInt(name+"/speedX"), 
-                    Gamedata::getInstance()->getXmlInt(name+"/speedY")) 
+           Vector2f(Gamedata::getInstance().getXmlInt(name+"/startLoc/x"), 
+                    Gamedata::getInstance().getXmlInt(name+"/startLoc/y")), 
+           Vector2f(Gamedata::getInstance().getXmlInt(name+"/speedX")+getRandomFactor(), 
+                    Gamedata::getInstance().getXmlInt(name+"/speedY")+getRandomFactor()) 
            ),
   frame( frame ),
   frameWidth(frame->getWidth()),
   frameHeight(frame->getHeight()),
-  worldWidth(Gamedata::getInstance()->getXmlInt("world/width")),
-  worldHeight(Gamedata::getInstance()->getXmlInt("world/height"))
+  worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
+  worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
 { }
 
 Sprite::Sprite(const Sprite& s) :
@@ -22,8 +27,8 @@ Sprite::Sprite(const Sprite& s) :
   frame(s.frame),  // shallow copy; Manager may reuse it
   frameWidth(s.getFrame()->getWidth()),
   frameHeight(s.getFrame()->getHeight()),
-  worldWidth(Gamedata::getInstance()->getXmlInt("world/width")),
-  worldHeight(Gamedata::getInstance()->getXmlInt("world/height"))
+  worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
+  worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
 { }
 
 Sprite& Sprite::operator=(const Sprite& rhs) {

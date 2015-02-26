@@ -3,21 +3,21 @@
 #include "ioManager.h"
 using std::string;
 
-IOManager* IOManager::getInstance() {
-  if ( !instance ) instance = new IOManager;
+IOManager& IOManager::getInstance() {
+  static IOManager instance;
   return instance;
 }
 
 IOManager::IOManager( ) :
   gdata( Gamedata::getInstance() ),
-  viewWidth( gdata->getXmlInt("view/width") ),
-  viewHeight( gdata->getXmlInt("view/height") ),
-  MAX_STRING_SIZE( gdata->getXmlInt("maxStringSize") ),
+  viewWidth( gdata.getXmlInt("view/width") ),
+  viewHeight( gdata.getXmlInt("view/height") ),
+  MAX_STRING_SIZE( gdata.getXmlInt("maxStringSize") ),
     // The 3rd and 4th parameters are just as important as the first 2!
     screen(SDL_SetVideoMode(viewWidth, viewHeight, 32, SDL_DOUBLEBUF)),
     font( NULL ), 
     color(),
-    title( gdata->getXmlStr("screenTitle") ),
+    title( gdata.getXmlStr("screenTitle") ),
     inputString()  
 {
   if (screen == NULL) { 
@@ -27,16 +27,16 @@ IOManager::IOManager( ) :
     throw string("TTF_Init failed: ") + TTF_GetError();
   }
   font = TTF_OpenFont(
-         gdata->getXmlStr("font/file").c_str(), 
-         gdata->getXmlInt("font/size")
+         gdata.getXmlStr("font/file").c_str(), 
+         gdata.getXmlInt("font/size")
          );
   if ( !font ) {
     throw string("TTF_OpenFont failed: ") + TTF_GetError();
   }
-  color.r = gdata->getXmlInt("font/red");
-  color.g = gdata->getXmlInt("font/green");
-  color.b = gdata->getXmlInt("font/blue");
-  color.unused = gdata->getXmlInt("font/unused");
+  color.r = gdata.getXmlInt("font/red");
+  color.g = gdata.getXmlInt("font/green");
+  color.b = gdata.getXmlInt("font/blue");
+  color.unused = gdata.getXmlInt("font/unused");
   SDL_EnableUNICODE( SDL_ENABLE );
   SDL_WM_SetCaption(title.c_str(), NULL);
   atexit(TTF_Quit);

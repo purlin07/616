@@ -2,8 +2,8 @@
 // Basic Animation Framework
 
 #include "manager.h"
-IOManager* IOManager::instance = NULL;
-Gamedata* Gamedata::instance = NULL;
+//IOManager* IOManager::instance = NULL;
+//Gamedata* Gamedata::instance = NULL;
 
 int main(int, char*[]) {
    try {

@@ -2,8 +2,8 @@
 #include <limits>
 #include "gamedata.h"
 
-Gamedata* Gamedata::getInstance() {
-  if ( !instance ) instance = new Gamedata;
+Gamedata& Gamedata::getInstance() {
+  static Gamedata instance;
   return instance;
 }
 

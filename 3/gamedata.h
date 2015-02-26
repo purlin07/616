@@ -6,7 +6,7 @@
 
 class Gamedata {
 public:
-  static Gamedata* getInstance();
+  static Gamedata& getInstance();
   void displayData() const;
 
   bool getXmlBool(const std::string&) const;
@@ -17,7 +17,7 @@ public:
   // An auxilliary function:
   float getRandInRange(int min, int max) const;
 private:
-  static Gamedata* instance;
+ // static Gamedata* instance;
   ParseXML parser;
   const map<std::string, std::string> gameData;
 

@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <vector>
 #include "ioManager.h"
 #include "clock.h"
 #include "sprite.h"
@@ -11,7 +12,7 @@ public:
 
 private:
   const bool env;
-  const IOManager* io;
+  const IOManager& io;
   Clock& clock;
 
   SDL_Surface * const screen;
@@ -21,7 +22,7 @@ private:
 
   SDL_Surface* orbSurface;
   const Frame * const orbFrame;
-  Sprite orb;
+  std::vector<Sprite> orbs;
 
   bool makeVideo;
   int frameCount;

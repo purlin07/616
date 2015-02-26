@@ -9,7 +9,7 @@
 
 class IOManager {
 public:
-  static IOManager* getInstance();
+  static IOManager& getInstance();
   SDL_Surface * getScreen() const { return screen; }
   ~IOManager() { TTF_CloseFont(font); }
 
@@ -28,11 +28,11 @@ public:
   void clearString() { inputString = ""; }
   const std::string& getString() const { return inputString; }
 private:
-  static IOManager* instance;
+ // static IOManager instance;
   IOManager();
   IOManager(const IOManager&);
   IOManager& operator=(const IOManager&);
-  const Gamedata* gdata;
+  const Gamedata& gdata;
   int viewWidth;
   int viewHeight;
   const unsigned MAX_STRING_SIZE;

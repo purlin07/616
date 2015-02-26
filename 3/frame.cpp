@@ -6,9 +6,9 @@
 // starts at (0, 0) in the sprite sheet, and the frame uses the 
 // entire sheet. For example, a Frame for an orb or a background.
 Frame::Frame( const std::string& name, SDL_Surface* surf ) : 
-  screen(IOManager::getInstance()->getScreen()),
-  width(Gamedata::getInstance()->getXmlInt(name+"/width")), 
-  height(Gamedata::getInstance()->getXmlInt(name+"/height")),
+  screen(IOManager::getInstance().getScreen()),
+  width(Gamedata::getInstance().getXmlInt(name+"/width")), 
+  height(Gamedata::getInstance().getXmlInt(name+"/height")),
   surface( surf )
 { }
 
