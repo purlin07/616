@@ -16,16 +16,18 @@ Clock& Clock::getInstance() {
 
 Clock::Clock() :
   ticks(0),
+  frames(0),
   started(false), 
   paused(false), 
   sloMo(false), 
-  sumOfTicks(0)
+  sumOfTicks(1)
   {
   start();
 }
 
 Clock::Clock(const Clock& c) :
   ticks(c.ticks), 
+  frames(c.frames),
   started(c.started), 
   paused(c.paused), 
   sloMo(c.sloMo), 
@@ -41,15 +43,24 @@ void Clock::draw() const {
 void Clock::update() { 
   //ticks = 5;
   if(!paused){ 
-  if(sloMo)
-	 ticks = 1;
-  else
-	 ticks = 5;
+    if(sloMo){
+   	 ++frames;
+	 ticks = 2;
+    } else {
+   	 frames+=9;
+	 ticks = 6;
+    } 
   }else{
-	ticks = 0;
+	ticks  = 0 ;
+	frames = 0;
   }
   
   sumOfTicks += ticks;
+  if(sumOfTicks > 1000){
+	sumOfTicks = 1;
+	frames = 0;
+  }
+  std::cout<<"frames = " << frames << std::endl;
 }
 
 unsigned int Clock::getTicksSinceLastFrame() const {
@@ -64,7 +75,11 @@ void Clock::toggleSloMo() {
 }
 
 int Clock::getFps() const { 
-  return 0;
+  std::cout<<"frames = " << frames << std::endl;
+  std::cout<<"sumOfTicks = " << sumOfTicks << std::endl;
+  int fps = ((frames*1000)/(9*sumOfTicks));
+  std::cout<<"fps = " << fps << std::endl;
+  return fps;
 }
 
 void Clock::start() { 

@@ -23,6 +23,7 @@ public:
 
 private:
   unsigned int ticks;
+  unsigned int frames;
   bool started;
   bool paused;
   bool sloMo;

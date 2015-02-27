@@ -9,6 +9,8 @@ Manager::~Manager() {
   // Manager made it, so Manager needs to delete it
   SDL_FreeSurface(orbSurface);
   delete orbFrame;
+  SDL_FreeSurface(backgroundSurface);
+  delete backgroundFrame;
   //delete IOManager::getInstance();
   //delete Gamedata::getInstance();
 }
